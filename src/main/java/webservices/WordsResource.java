@@ -20,9 +20,18 @@ public class WordsResource {
 	private WordsDao wordDao = new WordsDaoImpl();
 
 	@GET
+	@Path("/wordlists")
 	@Produces("application/json")
 	public Response getWordLists() {
 		ArrayList<Wordlist> wordLists = wordDao.getWordLists();
 		return Response.ok(wordLists).build();
+	}
+	
+	@GET
+	@Path("{wordListId}")
+	@Produces("application/json")
+	public Response getWordsFromList(@PathParam("wordListId") int id) {
+		ArrayList<Word> words = wordDao.getWordsFromList(id);
+		return Response.ok(words).build();
 	}
 }

@@ -20,20 +20,19 @@ public class WordService {
     public boolean sendWord(Word word){
         Boolean result = false;
         result = wordsDao.sendWord(word);
-
         return result;
     }
 
     public Word createWord(String word, Wordlist wordlist){
-        Word result;
-
-        result = new Word(word, wordlist);
-
-
-
+        Word result = new Word(word, wordlist);
         return result;
 
     }
+    
+	public Word createWord(int wordid, String word, Wordlist wordlist) {
+		Word result = new Word(wordid, word, wordlist);
+		return result;
+	}
 
     public Wordlist createList(String fileName, Language language){
         Wordlist result;
@@ -45,8 +44,8 @@ public class WordService {
 
     }
 
-    public HashMap<String, Wordlist> getWordLists() {
-        HashMap<String, Wordlist> result;
+    public ArrayList<Wordlist> getWordLists() {
+    	ArrayList<Wordlist> result;
         return wordsDao.getWordLists();
     }
 
@@ -54,4 +53,5 @@ public class WordService {
         Wordlist result = new Wordlist(id, name, language);
         return result;
     }
+
 }

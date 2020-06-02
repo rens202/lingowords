@@ -14,7 +14,13 @@ public class Word {
         this.wordlist = wordlist;
     }
 
-    public String getWord(){
+    public Word(int wordid, String word2, Wordlist wordlist2) {
+    	this.id = wordid;
+    	this.word = word2;
+        this.wordlist = wordlist2;
+	}
+
+	public String getWord(){
         return this.word;
     }
 

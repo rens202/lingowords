@@ -12,4 +12,6 @@ public interface WordsDao {
     Boolean sendWord(Word word);
 
     ArrayList<Wordlist> getWordLists();
+
+	ArrayList<Word> getWordsFromList(int id);
 }

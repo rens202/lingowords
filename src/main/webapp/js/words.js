@@ -1,19 +1,29 @@
 let dropdown = document.getElementById("wordlists");
+let words = document.getElementById("words");
+let languages = document.getElementById("languages");
 
-document.getElementById("languageButton").onclick = function getLanguages(){
+function getLanguages(){
 	let fetchoptions = {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
             }
         };
-        fetch("restservices/language", fetchoptions)
+        fetch("restservices/languages", fetchoptions)
             .then(function (response) {
                 if (response.ok) {
-                	console.log(response.json());
+                	response.json().then(function (data) {
+                		console.log(data);
+                		
+                		
+                	})
                 }
-                }).catch(error => console.error(error));
+                }
+            ).catch(error => console.error(error));
 }
+
+
+
 
 function getWordLists(){
 	let fetchoptions = {
@@ -22,12 +32,11 @@ function getWordLists(){
                 "Content-Type": "application/json",
             }
         };
-        fetch("restservices/words", fetchoptions)
+        fetch("restservices/words/wordlists", fetchoptions)
             .then(function (response) {
                 if (response.ok) {
                 	response.json().then(function (data) {
                         let option;
-                        console.log(data);
                         for (let i = 0; i < data.length; i++) {
                             option = document.createElement('option');
                             option.text = data[i].name + " | " + data[i].language.code;
@@ -41,10 +50,38 @@ function getWordLists(){
 	
 }
 
-function getWordsFromList(){
-	var option = document.getElementById("option");
-	var selectedOption = option.options[option.selectedIndex].value;
+document.getElementById("infoWordList").onclick = function getWordsFromListPressed(){
+	var selectedOption = dropdown.options[dropdown.selectedIndex].value;
 	console.log(selectedOption);
+	getWordsFromList(selectedOption);
 }
 
+function getWordsFromList(wordListId){
+	let url = "restservices/words/" + wordListId;
+	let fetchoptions = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+        fetch(url, fetchoptions)
+            .then(function (response) {
+                if (response.ok) {
+                	response.json().then(function (data) {
+                        console.log(data);
+                        let result = "<ul>";
+                        for (let i = 0; i < data.length; i++) {
+                        	result += '<li>'+ data[i].word + '</li>';
+                        }
+                        result += "</ul>"
+                        words.innerHTML = result;
+                    });
+                    return;               	
+                }
+                }).catch(error => console.error(error));
+	
+}
+
+
 getWordLists();
+getLanguages();

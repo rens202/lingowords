@@ -2,9 +2,10 @@ package persistence;
 
 import domain.Language;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface LanguageDao {
 
-    HashMap<String, Language> getAllLanguages();
+    ArrayList<Language> getAllLanguages();
 }
