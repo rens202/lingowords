@@ -1,7 +1,5 @@
 package webservices;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import domain.Word;
 import domain.Wordlist;
@@ -10,25 +8,30 @@ import persistence.WordsDaoImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @Path("/words")
 public class WordsResource {
 	private WordsDao wordDao = new WordsDaoImpl();
 
 	@GET
-	@Path("/wordlists")
 	@Produces("application/json")
+	@Path("/wordlists")
 	public Response getWordLists() {
 		ArrayList<Wordlist> wordLists = wordDao.getWordLists();
 		return Response.ok(wordLists).build();
 	}
 	
+	@DELETE
+	@Path("/wordlists/{{wordListId}}")
+	@Produces("application/json")
+	public Response deleteWordList(@PathParam("wordListId") int id) {
+		Boolean result = wordDao.deleteWordList(id);
+		return Response.ok(result).build();
+	}
+	
 	@GET
-	@Path("{wordListId}")
+	@Path("wordlists/{wordListId}")
 	@Produces("application/json")
 	public Response getWordsFromList(@PathParam("wordListId") int id) {
 		ArrayList<Word> words = wordDao.getWordsFromList(id);

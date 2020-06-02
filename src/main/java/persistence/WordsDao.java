@@ -14,4 +14,6 @@ public interface WordsDao {
     ArrayList<Wordlist> getWordLists();
 
 	ArrayList<Word> getWordsFromList(int id);
+
+	Boolean deleteWordList(int id);
 }

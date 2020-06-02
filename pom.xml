@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>hu</groupId>
-  <artifactId>lingogame</artifactId>
+  <artifactId>lingowords</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>lingogame</name>
+  <name>lingowords</name>
   <url>http://maven.apache.org</url>
 
   <properties>

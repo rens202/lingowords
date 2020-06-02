@@ -13,9 +13,32 @@ function getLanguages(){
             .then(function (response) {
                 if (response.ok) {
                 	response.json().then(function (data) {
+                		let res = "";
+                		for (let i = 0; i < data.length; i++) {
+                			res += '<div id=language' + data[i].id + '>' + data[i].name + '</div>'
+                		}
+                		languages.innerHTML = res;
+	
+                	})
+                }
+                }
+            ).catch(error => console.error(error));
+}
+
+
+function deleteWordList(){
+	let fetchoptions = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+        fetch("restservices/words/wordlists", fetchoptions)
+            .then(function (response) {
+                if (response.ok) {
+                	response.json().then(function (data) {
                 		console.log(data);
-                		
-                		
+	
                 	})
                 }
                 }
@@ -32,7 +55,7 @@ function getWordLists(){
                 "Content-Type": "application/json",
             }
         };
-        fetch("restservices/words/wordlists", fetchoptions)
+        fetch("restservices/words/wordslists", fetchoptions)
             .then(function (response) {
                 if (response.ok) {
                 	response.json().then(function (data) {
