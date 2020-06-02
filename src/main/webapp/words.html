@@ -1,14 +1,44 @@
 <h1>Words</h1>
 <div id="languages"></div>
 <br>
-<div id="wordlist">
-<select id="wordlists"></select>
+<button id="insertNewLanguage">New language</button>
+<br>
+<div id="divWords">
+	<h1>Existing word lists</h1>
+	<div id="wordlist">
+		<select id="wordlists"></select><input id="newWord"></input>
+		<button id="insertNewWord">Add word to list</button>
+	</div>
+
+	<br>
+
+	<button id="infoWordList">Information about wordlist</button>
+	<button id="deleteWordList">Delete wordlist</button>
+
 </div>
 <br>
+<br>
+<div id="divWordsList">
+	<h1>New word lists</h1>
+	<div id="newWordListLanguage">
+	<p>Wordlist language:</p>
+	<select id="languageDropdown"></select>
+	</div>
+	<div id="newWordListName">
+		<p>Wordlist name:</p>
+		<input id="newWordListName"></input>
+	</div>
+	<br>
+	<h3></h3>
+	<div id="newWordListUrl">
+		<p>Wordlist url:</p>
+		<input id="newWordUrl"></input>
+	</div>
+	<br>
+	<br>
+	<button id="submitWordList">Create new wordlist</button>
+</div>
 
-<button id="infoWordList" class="float-left submit-button" >Information about wordlist</button>
-<button id="deleteWordList" class="float-left submit-button" >Delete wordlist</button>
-<button id="submitWordList" class="float-left submit-button" >Submit inserted wordlist</button>
 
 <div id="words"></div>
 

@@ -17,11 +17,11 @@ public class WordService {
 
     }
 
-    public boolean sendWord(Word word){
+   /* public boolean sendWord(Word word){
         Boolean result = false;
         result = wordsDao.sendWord(word);
         return result;
-    }
+    }*/
 
     public Word createWord(String word, Wordlist wordlist){
         Word result = new Word(word, wordlist);

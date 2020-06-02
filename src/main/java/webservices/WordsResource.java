@@ -5,7 +5,6 @@ import domain.Word;
 import domain.Wordlist;
 import persistence.WordsDao;
 import persistence.WordsDaoImpl;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -23,10 +22,18 @@ public class WordsResource {
 	}
 	
 	@DELETE
-	@Path("/wordlists/{{wordListId}}")
+	@Path("/wordlists/{wordListId}")
 	@Produces("application/json")
 	public Response deleteWordList(@PathParam("wordListId") int id) {
 		Boolean result = wordDao.deleteWordList(id);
+		return Response.ok(result).build();
+	}
+	
+	@PUT
+	@Path("/wordlists/{wordListId}/{newword}")
+	@Produces("application/json")
+	public Response PutWordList(@PathParam("wordListId") int id, @PathParam("newword") String newword) {
+		Boolean result = wordDao.addWord(id, newword);
 		return Response.ok(result).build();
 	}
 	

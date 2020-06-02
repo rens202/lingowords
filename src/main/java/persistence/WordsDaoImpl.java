@@ -34,7 +34,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		return result;
 	}
 
-	@Override
+/*	@Override
 	public Boolean sendWord(Word word) {
 		Boolean result = false;
 		try (Connection con = super.getConnection()) {
@@ -50,7 +50,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		}
 
 		return result;
-	}
+	}*/
 
 	public boolean sendWordList(Wordlist wordlist) {
 		boolean result = false;
@@ -152,6 +152,24 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	@Override
+	public Boolean addWord(int id, String newword) {
+		Boolean result = false;
+		try (Connection con = super.getConnection()) {
+			PreparedStatement pst = con.prepareStatement("INSERT INTO words(word, wordlist) values(?, ?)");
+			pst.setString(1, newword);
+			pst.setInt(2, id);
+			int res = pst.executeUpdate();
+			if (res == 1) {
+				result = true;
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
 		}
 
 		return result;
