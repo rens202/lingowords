@@ -1,4 +1,4 @@
 document.getElementById("wordButton").onclick = function () {
-        location.href = "/lingowords/words.html";
+        location.href = "/words.html";
     };
     
