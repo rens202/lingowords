@@ -12,16 +12,9 @@ public class WordService {
 
     public boolean sendWords(ArrayList<Word> words){
         Boolean result = wordsDao.sendWords(words);
-
-        return result;
-
-    }
-
-    public boolean sendWord(Word word){
-        Boolean result = false;
-        result = wordsDao.sendWord(word);
         return result;
     }
+
 
     public Word createWord(String word, Wordlist wordlist){
         Word result = new Word(word, wordlist);
@@ -53,5 +46,12 @@ public class WordService {
         Wordlist result = new Wordlist(id, name, language);
         return result;
     }
+
+
+	public Wordlist createWordlist(String wordListName, Language createLanguage) {
+		Wordlist result = new Wordlist(wordListName, createLanguage);
+        return result;
+		
+	}
 
 }

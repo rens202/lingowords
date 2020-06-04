@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
 
     public ArrayList<Language> getAllLanguages(){
@@ -34,4 +36,27 @@ public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
         return result;
 
     }
+
+	@Override
+	public Boolean postLanguage(String jsonData) {
+		Boolean result = false;
+		JSONObject object = new JSONObject(jsonData);
+		String languageName = object.get("name").toString();
+		String languageCode = object.get("code").toString();
+		
+		
+		try (Connection con = super.getConnection()) {
+			PreparedStatement pst = con.prepareStatement("INSERT INTO languages(name, code) values(?, ?)");
+			pst.setString(1, languageName);
+			pst.setString(2, languageCode);
+			int res = pst.executeUpdate();
+			if (res == 1) {
+				result = true;
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
+		return result;
+	}
 }

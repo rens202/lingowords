@@ -12,7 +12,11 @@ public class Language {
         this.code = code;
     }
 
-    public String getCode(){
+    public Language(int wordListLanguage) {
+		this.id = wordListLanguage;
+	}
+
+	public String getCode(){
         return this.code;
     }
 

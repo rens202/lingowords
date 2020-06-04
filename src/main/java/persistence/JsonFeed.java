@@ -12,4 +12,10 @@ public class JsonFeed implements FileReader{
         return null;
     }
 
+	@Override
+	public Boolean readUrl(String fileName, Wordlist wordlist) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

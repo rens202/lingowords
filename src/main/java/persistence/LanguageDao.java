@@ -8,4 +8,6 @@ import java.util.HashMap;
 public interface LanguageDao {
 
     ArrayList<Language> getAllLanguages();
+
+	Boolean postLanguage(String jsonData);
 }

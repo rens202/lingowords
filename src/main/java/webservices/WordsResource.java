@@ -1,34 +1,56 @@
 package webservices;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import domain.Word;
 import domain.Wordlist;
 import persistence.WordsDao;
 import persistence.WordsDaoImpl;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
+
+import org.glassfish.jersey.process.internal.RequestContext;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @Path("/words")
 public class WordsResource {
 	private WordsDao wordDao = new WordsDaoImpl();
 
 	@GET
-	@Path("/wordlists")
 	@Produces("application/json")
 	public Response getWordLists() {
 		ArrayList<Wordlist> wordLists = wordDao.getWordLists();
 		return Response.ok(wordLists).build();
 	}
 	
+	@POST
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response postWordLists(String jsonData) {
+		wordDao.postWords(jsonData);
+		Boolean result = false;
+		return Response.ok(result).build();
+	}
+	
+	
+	@DELETE
+	@Path("/{wordListId}")
+	@Produces("application/json")
+	public Response deleteWordList(@PathParam("wordListId") int id) {
+		Boolean result = wordDao.deleteWordList(id);
+		return Response.ok(result).build();
+	}
+	
+	@PUT
+	@Path("/{wordListId}/{newword}")
+	@Produces("application/json")
+	public Response putWordList(@PathParam("wordListId") int id, @PathParam("newword") String newword) {
+		Boolean result = wordDao.addWord(id, newword);
+		return Response.ok(result).build();
+	}
+	
 	@GET
-	@Path("{wordListId}")
+	@Path("/{wordListId}")
 	@Produces("application/json")
 	public Response getWordsFromList(@PathParam("wordListId") int id) {
 		ArrayList<Word> words = wordDao.getWordsFromList(id);
