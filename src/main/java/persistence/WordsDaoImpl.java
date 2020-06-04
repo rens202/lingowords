@@ -76,6 +76,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 					"select wordlists.id, wordlists.name, languages.id as languageid, languages.name as languagename, languages.code as code from wordlists inner join languages on languages.id = wordlists.language");
 			ResultSet res = pst.executeQuery();
 
+			if(res != null) {
 			while (res.next()) {
 				String name = res.getString("name");
 				int languageId = res.getInt("languageId");
@@ -85,7 +86,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 				Wordlist wl = wordService.createWordlist(name, id,
 						languageService.createLanguage(languageName, code, languageId));
 				result.add(wl);
-			}
+			}}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,6 +107,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 			pst.setInt(1, id);
 			ResultSet res = pst.executeQuery();
 
+			if(res != null) {
 			while (res.next()) {
 				int wordlistid = res.getInt("wordlist");
 				int wordid = res.getInt("id");
@@ -116,7 +118,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 				String languageName = res.getString("languageName");
 				result.add(wordService.createWord(wordid, word, wordService.createWordlist(languageName, wordlistid,
 						languageService.createLanguage(languageName, languageCode, languageId))));
-			}
+			}}
 
 		} catch (SQLException e) {
 			e.printStackTrace();

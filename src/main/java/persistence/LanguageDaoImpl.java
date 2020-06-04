@@ -21,6 +21,7 @@ public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
             PreparedStatement pst = con.prepareStatement("select * from languages");
             ResultSet res = pst.executeQuery();
 
+            if(res != null) {
             while(res.next()){
                 String name = res.getString("name");
                 String code = res.getString("code");
@@ -28,7 +29,7 @@ public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
                 Language l = languageService.createLanguage(name, code, id);
                 result.add(l);
             }
-
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
