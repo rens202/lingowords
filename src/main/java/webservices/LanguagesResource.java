@@ -19,5 +19,12 @@ public class LanguagesResource {
 		
 	}
 	
+	@POST
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response postWordLists(String jsonData) {
+		Boolean result = languageDao.postLanguage(jsonData);
+		return Response.ok(result).build();
+	}
 	
 }

@@ -17,4 +17,6 @@ public interface WordsDao {
 	Boolean deleteWordList(int id);
 
 	Boolean addWord(int id, String newword);
+	
+	Boolean postWords(String json);
 }

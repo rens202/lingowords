@@ -35,7 +35,7 @@ document.getElementById("deleteWordList").onclick = function deleteWordslistPres
 }
 
 function deleteWordList(selectedOption){
-	let url = "restservices/words/wordlists/" + selectedOption
+	let url = "restservices/words/" + selectedOption
 	let fetchoptions = {
             method: 'DELETE',
             headers: {
@@ -50,7 +50,6 @@ function deleteWordList(selectedOption){
                 			alert('Succesfully deleted list + words')
                 			location.reload();
                 		}
-	
                 	})
                 }
                 }
@@ -64,7 +63,7 @@ function getWordLists(){
                 "Content-Type": "application/json",
             }
         };
-        fetch("restservices/words/wordlists", fetchoptions)
+        fetch("restservices/words", fetchoptions)
             .then(function (response) {
                 if (response.ok) {
                 	response.json().then(function (data) {
@@ -82,10 +81,43 @@ function getWordLists(){
 	
 }
 
+document.getElementById("insertNewLanguage").onclick = function newLanguagePressed(){
+	let newLanguageName = document.getElementById("newLanguageName").value;
+	let newLanguageCode = document.getElementById("newLanguageCode").value;
+	newLanguage(newLanguageName, newLanguageCode);
+}
+
 document.getElementById("infoWordList").onclick = function getWordsFromListPressed(){
 	let selectedOption = dropdown.options[dropdown.selectedIndex].value;
 	getWordsFromList(selectedOption);
 }
+
+
+function newLanguage(newLanguageName, newLanguageCode){
+
+	let json = '{'
+		+'"name": "' + newLanguageName + '",'
+		+'"code": "' + newLanguageCode + '"}'
+	
+	if(newLanguageName && newLanguageCode && newLanguageCode.length < 4){
+		let url = "restservices/languages";
+		let fetchoptions = {
+	            method: 'POST',
+	            headers: {
+	                "Content-Type": "application/json",
+	            },
+	            body: json
+	        };
+	        fetch(url, fetchoptions)
+	            .then(function (response) {
+	                if (response.ok) {
+	                	alert("Succesfully added language");
+	                	}
+	                })
+	              }else{alert("Something went wrong, please try again");}
+	
+	
+	}
 
 function getWordsFromList(wordListId){
 	let url = "restservices/words/" + wordListId;
@@ -123,7 +155,7 @@ document.getElementById("insertNewWord").onclick = function addWordToSelectedLis
 }
 
 function addWordToSelectedList(wordListId, newword){
-	let url = "restservices/words/wordlists/" + wordListId + "/" + newword
+	let url = "restservices/words/" + wordListId + "/" + newword
 	let fetchoptions = {
             method: 'PUT',
             headers: {
@@ -146,15 +178,35 @@ function addWordToSelectedList(wordListId, newword){
 	
 }
 
-document.getElementById("insertNewWord").onclick = function createNewListPressed(){
-	let selectedOption = languagesDropdown.options[languagesDropdown.selectedIndex].value;
-	let newWordUrl = document.getElementById("newWordUrl").value;
+document.getElementById("submitWordList").onclick = function createNewListPressed(){
+	let newWordListLanguage = languagesDropdown.options[languagesDropdown.selectedIndex].value;
+	let newWordListUrl = document.getElementById("newWordUrl").value;
 	let newWordListName = document.getElementById("newWordListName").value;
 	
-	if(newword){
-		addWordToSelectedList(selectedOption, newword);
+	let json = '{'
+		+'"name": "' + newWordListName + '",'
+		+'"url": "' + newWordListUrl + '",'
+		+'"language": ' + newWordListLanguage + '}'
+	
+	if(newWordListLanguage && newWordListUrl && newWordListName && newWordListUrl.includes(".")){
+		let url = "restservices/words"
+		let fetchoptions = {
+	            method: 'POST',
+	            headers: {
+	                "Content-Type": "application/json",
+	            },
+	            body: json
+	        };
+	        fetch(url, fetchoptions)
+	            .then(function (response) {
+	                if (response.ok) {
+	                	alert("succesfully added wordlist")
+	                	location.reload();
+	                	}
+	                })
+	              }else{alert("Something went wrong, please try again")}
 	}
-}
+
 
 
 

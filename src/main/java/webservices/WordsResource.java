@@ -7,6 +7,9 @@ import persistence.WordsDao;
 import persistence.WordsDaoImpl;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.process.internal.RequestContext;
+
 import java.util.ArrayList;
 
 @Path("/words")
@@ -15,14 +18,23 @@ public class WordsResource {
 
 	@GET
 	@Produces("application/json")
-	@Path("/wordlists")
 	public Response getWordLists() {
 		ArrayList<Wordlist> wordLists = wordDao.getWordLists();
 		return Response.ok(wordLists).build();
 	}
 	
+	@POST
+	@Produces("application/json")
+	@Consumes("application/json")
+	public Response postWordLists(String jsonData) {
+		wordDao.postWords(jsonData);
+		Boolean result = false;
+		return Response.ok(result).build();
+	}
+	
+	
 	@DELETE
-	@Path("/wordlists/{wordListId}")
+	@Path("/{wordListId}")
 	@Produces("application/json")
 	public Response deleteWordList(@PathParam("wordListId") int id) {
 		Boolean result = wordDao.deleteWordList(id);
@@ -30,15 +42,15 @@ public class WordsResource {
 	}
 	
 	@PUT
-	@Path("/wordlists/{wordListId}/{newword}")
+	@Path("/{wordListId}/{newword}")
 	@Produces("application/json")
-	public Response PutWordList(@PathParam("wordListId") int id, @PathParam("newword") String newword) {
+	public Response putWordList(@PathParam("wordListId") int id, @PathParam("newword") String newword) {
 		Boolean result = wordDao.addWord(id, newword);
 		return Response.ok(result).build();
 	}
 	
 	@GET
-	@Path("wordlists/{wordListId}")
+	@Path("/{wordListId}")
 	@Produces("application/json")
 	public Response getWordsFromList(@PathParam("wordListId") int id) {
 		ArrayList<Word> words = wordDao.getWordsFromList(id);

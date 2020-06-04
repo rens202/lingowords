@@ -2,12 +2,21 @@ package persistence;
 
 import domain.*;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.json.JsonObject;
+
+import org.json.JSONObject;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 
@@ -34,34 +43,15 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		return result;
 	}
 
-/*	@Override
-	public Boolean sendWord(Word word) {
-		Boolean result = false;
-		try (Connection con = super.getConnection()) {
-			PreparedStatement pst = con.prepareStatement("INSERT INTO words(word, wordlist) values(?, ?)");
-			pst.setString(1, word.getWord());
-			pst.setInt(2, word.getWordlist().getId());
-			int res = pst.executeUpdate();
-			if (res == 1) {
-				result = true;
-			}
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-		}
 
-		return result;
-	}*/
-
-	public boolean sendWordList(Wordlist wordlist) {
-		boolean result = false;
-
+	public Wordlist sendWordList(Wordlist wordlist) {
+		
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement("INSERT INTO wordlists(name, language) values(?, ?)");
 			pst.setString(1, wordlist.getName());
 			pst.setInt(2, wordlist.getLanguage().getId());
 			int res = pst.executeUpdate();
 			if (res == 1) {
-				result = true;
 				PreparedStatement pstGet = con.prepareStatement("SELECT currval('wordlists_id_seq');");
 
 				ResultSet resGet = pstGet.executeQuery();
@@ -74,7 +64,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 			sqle.printStackTrace();
 		}
 
-		return result;
+		return wordlist;
 	}
 
 	public ArrayList<Wordlist> getWordLists() {
@@ -158,18 +148,52 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 	}
 
 	@Override
-	public Boolean addWord(int id, String newword) {
+	public Boolean addWord(int wordlistid, String newword) {
 		Boolean result = false;
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement("INSERT INTO words(word, wordlist) values(?, ?)");
 			pst.setString(1, newword);
-			pst.setInt(2, id);
+			pst.setInt(2, wordlistid);
 			int res = pst.executeUpdate();
 			if (res == 1) {
 				result = true;
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
+		}
+
+		return result;
+	}
+
+	@Override
+	public Boolean postWords(String json) {
+		Boolean result = false;
+		JSONObject object = new JSONObject(json);
+		WordService wordService = new WordService();
+		LanguageService languageService = new LanguageService();
+		
+
+		String wordListName = object.get("name").toString();
+		String wordListUrl = object.get("url").toString();
+		int wordListLanguage = (int) object.get("language");
+
+		Wordlist wordList = sendWordList(wordService.createWordlist(wordListName, languageService.createLanguage(wordListLanguage)));
+		
+		String fileType = wordListUrl.substring(wordListUrl.lastIndexOf(".") + 1);
+
+		switch (fileType) {
+		case "txt":
+			FileReader tf = new TextFeed();
+			result = tf.readUrl(wordListUrl, wordList);
+			break;
+		case "json":
+			FileReader jf = new JsonFeed();
+			result = jf.readUrl(wordListUrl, wordList);
+			break;
+		case "csv":
+			break;
+		default:
+			break;
 		}
 
 		return result;
