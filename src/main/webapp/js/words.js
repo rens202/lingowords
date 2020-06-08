@@ -131,7 +131,6 @@ function getWordsFromList(wordListId){
             .then(function (response) {
                 if (response.ok) {
                 	response.json().then(function (data) {
-                        console.log(data);
                         let result = "<ul>";
                         for (let i = 0; i < data.length; i++) {
                         	result += '<li>'+ data[i].word + '</li>';

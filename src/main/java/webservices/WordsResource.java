@@ -27,8 +27,7 @@ public class WordsResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Response postWordLists(String jsonData) {
-		wordDao.postWords(jsonData);
-		Boolean result = false;
+		Boolean result = wordDao.postWords(jsonData);
 		return Response.ok(result).build();
 	}
 	
