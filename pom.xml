@@ -21,7 +21,7 @@
         <repository>
             <id>localLingoWords</id>
             <name>RepositoryProxyRel</name>
-            <url>http://127.0.0.1:8080/lingowords/content/repositories/releases/</url>
+            <url>http://127.0.0.1:8080/lingowords/releases/</url>
         </repository>
         <!-- use the following if you ARE using a snapshot version. -->
         <snapshotRepository>
