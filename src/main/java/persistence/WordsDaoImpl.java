@@ -173,7 +173,6 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		JSONObject object = new JSONObject(json);
 		WordService wordService = new WordService();
 		LanguageService languageService = new LanguageService();
-		
 
 		String wordListName = object.get("name").toString();
 		String wordListUrl = object.get("url").toString();
