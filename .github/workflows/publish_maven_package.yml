@@ -39,6 +39,8 @@ jobs:
         path: target
     
   package-jar:
+      needs: build
+      
       runs-on: ubuntu-latest
       
       steps:
