@@ -15,19 +15,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-  
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>Lingo1</id>
-      <name>Lingo Repository</name>
-      <url>scp://releases</url>
-      <layout>default</layout>
-    </repository>
-    <downloadUrl>https://hu-lingowords.herokuapp.com/</downloadUrl>
-      
-    </distributionManagement>
-  
+   
   <build>       
     <plugins>     
       <plugin>             
