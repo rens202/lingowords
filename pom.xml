@@ -16,6 +16,21 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   
+  <distributionManagement>
+        <!-- use the following if you're not using a snapshot version. -->
+        <repository>
+            <id>localLingoWords</id>
+            <name>RepositoryProxyRel</name>
+            <url>http://127.0.0.1:8080/lingowords/content/repositories/releases/</url>
+        </repository>
+        <!-- use the following if you ARE using a snapshot version. -->
+        <snapshotRepository>
+            <id>localLingoWordsSnap</id>
+            <name>RepositoryProxySnap</name>
+            <url>http://127.0.0.1:8080/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+  
   <build>       
     <plugins>     
       <plugin>             
