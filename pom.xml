@@ -17,18 +17,15 @@
   </properties>
   
   <distributionManagement>
-        <!-- use the following if you're not using a snapshot version. -->
-        <repository>
-            <id>localLingoWords</id>
-            <name>RepositoryProxyRel</name>
-            <url>http://127.0.0.1:8080/lingowords/releases/</url>
-        </repository>
-        <!-- use the following if you ARE using a snapshot version. -->
-        <snapshotRepository>
-            <id>localLingoWordsSnap</id>
-            <name>RepositoryProxySnap</name>
-            <url>http://127.0.0.1:8080/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>Lingo1</id>
+      <name>Lingo Repository</name>
+      <url>scp://releases</url>
+      <layout>default</layout>
+    </repository>
+    <downloadUrl>https://hu-lingowords.herokuapp.com/</downloadUrl>
+      
     </distributionManagement>
   
   <build>       
