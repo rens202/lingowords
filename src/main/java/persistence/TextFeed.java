@@ -21,7 +21,7 @@ public class TextFeed implements FileReader {
 			while ((line = br.readLine()) != null) {
 				if (line.length() > 4 && line.length() < 7 && !line.matches(".*[-,\'1234567890.:;_].*")
 						&& !Character.isUpperCase(line.charAt(0))) {
-					result.add(wordService.createWord(line, wordlist));
+					result.add(wordService.createWord(line.replaceAll("\\s+",""), wordlist));
 				}
 
 			}
