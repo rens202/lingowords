@@ -95,7 +95,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement(
 					"select words.id as id, words.word as word, words.wordlist as wordlist, wordlists.name as wordlistname, wordlists.language as language, languages.code as languagecode, languages.name as languagename from words inner join wordlists on wordlists.id = words.wordlist inner join languages on languages.id = wordlists.language where words.wordlist = ?");
-			pst.setInt(1, id);
+			pst.setInt(1, id); 
 			ResultSet res = pst.executeQuery();
 
 			if (res != null) {
@@ -103,7 +103,6 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 					int wordlistid = res.getInt("wordlist");
 					int wordid = res.getInt("id");
 					String word = res.getString("word");
-					String wordlistName = res.getString("wordlistname");
 					int languageId = res.getInt("language");
 					String languageCode = res.getString("languageCode");
 					String languageName = res.getString("languageName");

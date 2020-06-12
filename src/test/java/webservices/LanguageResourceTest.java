@@ -21,12 +21,9 @@ public class LanguageResourceTest {
 
 	@Before
 	public void setUp() {
-		try {
-			jsonData = "{\"language\": 1, \"name\":\"test\", \"url\": \"aaaa.txt\"}";
-			languageResource = new LanguagesResource();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		jsonData = "{\"language\": 1, \"name\":\"test\", \"url\": \"aaaa.txt\"}";
+		languageResource = new LanguagesResource();
+
 	}
 
 	@Test
@@ -47,6 +44,6 @@ public class LanguageResourceTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
+
 	}
 }

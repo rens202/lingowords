@@ -24,10 +24,9 @@ public class WordsDaoImplTest extends PostgresBaseDao {
 		words = new ArrayList<>();
 		words.add(new Word("word", wordlist));
 		words.add(new Word("word2", wordlist));
-
 		jsonData = "{\"language\": 1, \"name\":\"test\", \"url\": \"aaaa.txt\"}";
-
 		wordsDao = new WordsDaoImpl();
+		
 		try {
 			con = super.getConnection();
 		} catch (Exception e) {

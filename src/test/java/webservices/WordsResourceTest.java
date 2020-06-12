@@ -13,12 +13,8 @@ public class WordsResourceTest {
 
 	@Before
 	public void setUp() {
-		try {
-			jsonData = "{\"language\": 1, \"name\":\"test\", \"url\": \"aaaa.txt\"}";
-			wordsResource = new WordsResource();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		jsonData = "{\"language\": 1, \"name\":\"test\", \"url\": \"aaaa.txt\"}";
+		wordsResource = new WordsResource();
 	}
 
 	@Test

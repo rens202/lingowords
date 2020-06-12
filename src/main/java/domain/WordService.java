@@ -2,26 +2,23 @@ package domain;
 
 public class WordService {
 
-    public Word createWord(String word, Wordlist wordlist){
-        Word result = new Word(word, wordlist);
-        return result;
-    }
-
-	public Word createWord(int wordid, String word, Wordlist wordlist) {
-		Word result = new Word(wordid, word, wordlist);
-		return result;
+	public Word createWord(String word, Wordlist wordlist) {
+		return new Word(word, wordlist);
 	}
 
+	public Word createWord(int wordid, String word, Wordlist wordlist) {
+		return new Word(wordid, word, wordlist);
 
-    public Wordlist createWordlist(String name, int id, Language language) {
-        Wordlist result = new Wordlist(id, name, language);
-        return result;
-    }
+	}
+
+	public Wordlist createWordlist(String name, int id, Language language) {
+		return new Wordlist(id, name, language);
+
+	}
 
 	public Wordlist createWordlist(String wordListName, Language createLanguage) {
-		Wordlist result = new Wordlist(wordListName, createLanguage);
-        return result;
-		
+		return new Wordlist(wordListName, createLanguage);
+
 	}
 
 }

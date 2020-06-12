@@ -13,9 +13,9 @@ import java.util.HashMap;
 import org.json.JSONObject;
 
 public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
+	LanguageService languageService = new LanguageService();
 
     public ArrayList<Language> getAllLanguages(){
-        LanguageService languageService = new LanguageService();
         ArrayList<Language> result = new ArrayList<>();
         try (Connection con = super.getConnection()) {
             PreparedStatement pst = con.prepareStatement("select * from languages");

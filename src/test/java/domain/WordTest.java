@@ -15,7 +15,15 @@ public class WordTest {
         wordlist = new Wordlist("wordlist", new Language(1));
         word = new Word("word", wordlist);
         word2 = new Word(1, "word2", wordlist);
-
+        
+        assertNotNull(word);
+        assertNotNull(word2);
+    } 
+    
+    @Test
+    public void Word() {
+    	word2 = new Word(1, "word2", wordlist);
+    	assertNotNull(word2);
     }
 
     @Test
