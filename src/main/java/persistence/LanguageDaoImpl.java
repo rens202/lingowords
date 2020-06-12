@@ -45,7 +45,6 @@ public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
 		String languageName = object.get("name").toString();
 		String languageCode = object.get("code").toString();
 		
-		
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement("INSERT INTO languages(name, code) values(?, ?)");
 			pst.setString(1, languageName);

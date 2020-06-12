@@ -13,17 +13,16 @@ import java.util.ArrayList;
 
 public class TextFeed implements FileReader {
 
-	public ArrayList<Word> readFile(String fileName, String listName, Wordlist wordlist) {
+	public ArrayList<Word> readFile(String fileName, Wordlist wordlist) {
 		ArrayList<Word> result = new ArrayList<>();
 		WordService wordService = new WordService();
 		try (BufferedReader br = new BufferedReader(new java.io.FileReader(fileName))) {
 			String line;
-			while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null) { 
 				if (line.length() > 4 && line.length() < 7 && !line.matches(".*[-,\'1234567890.:;_].*")
 						&& !Character.isUpperCase(line.charAt(0))) {
 					result.add(wordService.createWord(line.replaceAll("\\s+",""), wordlist));
 				}
-
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -44,21 +43,16 @@ public class TextFeed implements FileReader {
 			if (responseCode == HttpURLConnection.HTTP_OK) { // success
 				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				String inputLine;
-
 				while ((inputLine = in.readLine()) != null) {
 					if (inputLine.length() > 4 && inputLine.length() < 7 && !inputLine.matches(".*[-,\'1234567890.:;_].*")
 							&& !Character.isUpperCase(inputLine.charAt(0))) {
 						wordsDao.addWord(wordlist.getId(), inputLine);
 					}
 				}
-				in.close();
-
-				return result;
-			} else {
-				return result;
-			}
+				in.close();	
+			} 
 		}catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return result;
 	}

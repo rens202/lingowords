@@ -5,10 +5,6 @@ public class Word {
     private String word;
     private Wordlist wordlist;
 
-    public Word(String word){
-        this.word = word;
-    }
-
     public Word(String word, Wordlist wordlist) {
         this.word = word;
         this.wordlist = wordlist;

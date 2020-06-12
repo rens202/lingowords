@@ -9,6 +9,7 @@ import java.util.HashMap;
 public interface WordsDao {
     Boolean sendWords(ArrayList<Word> words);
 
+	Wordlist sendWordList(Wordlist wordlist);
 
     ArrayList<Wordlist> getWordLists();
 

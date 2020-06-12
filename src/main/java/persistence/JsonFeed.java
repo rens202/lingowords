@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class JsonFeed implements FileReader{
 
-    public ArrayList<Word> readFile(String fileName, String listName, Wordlist wordlist){
+    public ArrayList<Word> readFile(String fileName, Wordlist wordlist){
         return null;
     }
 

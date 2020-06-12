@@ -12,6 +12,8 @@ public class Language {
         this.code = code;
     }
 
+    //leave the getters for json constructor.
+
     public Language(int wordListLanguage) {
 		this.id = wordListLanguage;
 	}
