@@ -95,7 +95,7 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement(
 					"select words.id as id, words.word as word, words.wordlist as wordlist, wordlists.name as wordlistname, wordlists.language as language, languages.code as languagecode, languages.name as languagename from words inner join wordlists on wordlists.id = words.wordlist inner join languages on languages.id = wordlists.language where words.wordlist = ?");
-			pst.setInt(1, id); 
+			pst.setInt(1, id);
 			ResultSet res = pst.executeQuery();
 
 			if (res != null) {
@@ -110,7 +110,6 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 							languageService.createLanguage(languageName, languageCode, languageId))));
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -138,15 +137,17 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 	@Override
 	public Boolean addWord(int wordlistid, String newword) {
 		Boolean result = false;
-		try (Connection con = super.getConnection()) {
-			PreparedStatement pst = con.prepareStatement("INSERT INTO words(word, wordlist) values(?, ?)");
-			pst.setString(1, newword);
-			pst.setInt(2, wordlistid);
-			if (pst.executeUpdate() == 1) {
-				result = true;
+		if (newword.matches("^[a-z]+$") && newword.length() != 7) {
+			try (Connection con = super.getConnection()) {
+				PreparedStatement pst = con.prepareStatement("INSERT INTO words(word, wordlist) values(?, ?)");
+				pst.setString(1, newword);
+				pst.setInt(2, wordlistid);
+				if (pst.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return result;
 	}
