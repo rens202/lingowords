@@ -32,14 +32,8 @@ public class WordsDaoImplTest extends PostgresBaseDao {
 	String jsonData;
 	String jsonData2;
 	@Mock
-	private PreparedStatement preparedStatement;
-	@Mock
 	private ResultSet res;
-	@Mock
-	private Connection conn;
 	String query;
-	PostgresBaseDao bes = Mockito.spy(new PostgresBaseDao());
-
 	
 
 	@Before

@@ -16,15 +16,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+@RunWith(MockitoJUnitRunner.class)
 public class LanguageDaoImplTest {
 	LanguageDao languageDao;
 	String jsonData;
 	String query;
-	PostgresBaseDao bes = Mockito.spy(new PostgresBaseDao());
-	@Mock private PreparedStatement preparedStatement;
 	@Mock private ResultSet res;
-	@Mock private Connection conn;
 
 	@Before
 	public void setUp() throws SQLException {
