@@ -32,7 +32,7 @@ public class WordsDaoImplTest extends PostgresBaseDao {
 	String jsonData;
 	String jsonData2;
 	@Mock
-	private ResultSet res;
+	ResultSet res;
 	String query;
 	
 
