@@ -35,5 +35,5 @@ Words -< Wordslists -< Languages
 Het is mogelijk nieuwe languages aan te maken en vervolgens nieuwe woordlijsten te maken met deze taal, deze valt vervolgens mij lingogame te selecteren. De taal van de "interface" engels.
 
 
-Aangezien ik te achterlijk was om de codecov voor elkaar te krijgen (zie 0% heb ik hier een hele mooie image.
+Aangezien ik te achterlijk was om de codecov voor elkaar te krijgen (zie 0% heb ik hier een hele mooie image. Mockito gebruikt op een paar punten.
 ![code coverage](https://github.com/rens202/lingowords/blob/master/lingowords_coverage.JPG)
