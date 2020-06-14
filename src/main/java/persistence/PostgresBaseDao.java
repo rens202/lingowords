@@ -8,7 +8,7 @@ import java.sql.Connection;
 
 public class PostgresBaseDao {
 
-    protected final Connection getConnection() {
+    protected Connection getConnection() {
         Connection result = null;
 
         try {

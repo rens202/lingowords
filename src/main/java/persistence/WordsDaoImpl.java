@@ -66,17 +66,11 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		ArrayList<Wordlist> result = new ArrayList<>();
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement(
-					"select wordlists.id, wordlists.name, languages.id as languageid, languages.name as languagename, languages.code as code from wordlists inner join languages on languages.id = wordlists.language");
+					"select wordlists.id as wordlist, wordlists.name as wordlistname, languages.id as language, languages.name as languageName, languages.code as languageCode from wordlists inner join languages on languages.id = wordlists.language");
 			ResultSet res = pst.executeQuery();
 			if (res != null) {
 				while (res.next()) {
-					String name = res.getString("name");
-					int languageId = res.getInt("languageId");
-					int id = res.getInt("id");
-					String code = res.getString("code");
-					String languageName = res.getString("languageName");
-					Wordlist wl = wordService.createWordlist(name, id,
-							languageService.createLanguage(languageName, code, languageId));
+					Wordlist wl = getWordListFromRes(res);
 					result.add(wl);
 				}
 			}
@@ -94,25 +88,54 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		ArrayList<Word> result = new ArrayList<>();
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement(
-					"select words.id as id, words.word as word, words.wordlist as wordlist, wordlists.name as wordlistname, wordlists.language as language, languages.code as languagecode, languages.name as languagename from words inner join wordlists on wordlists.id = words.wordlist inner join languages on languages.id = wordlists.language where words.wordlist = ?");
+					"select words.id as id, words.word as word, words.wordlist as wordlist, wordlists.name as languageName, wordlists.language as language, languages.code as languagecode, languages.name as languagename from words inner join wordlists on wordlists.id = words.wordlist inner join languages on languages.id = wordlists.language where words.wordlist = ?");
 			pst.setInt(1, id);
 			ResultSet res = pst.executeQuery();
 
 			if (res != null) {
+				Wordlist wordlist = null;
 				while (res.next()) {
-					int wordlistid = res.getInt("wordlist");
+					if (res.isFirst()) {
+						wordlist = getWordListFromRes(res);
+					}
 					int wordid = res.getInt("id");
 					String word = res.getString("word");
-					int languageId = res.getInt("language");
-					String languageCode = res.getString("languageCode");
-					String languageName = res.getString("languageName");
-					result.add(wordService.createWord(wordid, word, wordService.createWordlist(languageName, wordlistid,
-							languageService.createLanguage(languageName, languageCode, languageId))));
+					result.add(wordService.createWord(wordid, word, wordlist));
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	@Override
+	public Wordlist getWordListFromRes(ResultSet res) {
+		Wordlist result = null;
+		try {
+			int wordlistid = res.getInt("wordlist");
+			String wordlistName = res.getString("wordlistname");
+			Language language = getLanguageFromRes(res);
+			wordService.createWordlist(wordlistName, wordlistid, language);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
+
+	public Language getLanguageFromRes(ResultSet res) {
+		Language result = null;
+		try {
+			int languageId = res.getInt("language");
+			String languageCode = res.getString("languageCode");
+			String languageName = res.getString("languageName");
+			result = languageService.createLanguage(languageName, languageCode, languageId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return result;
 	}
 
@@ -168,8 +191,6 @@ public class WordsDaoImpl extends PostgresBaseDao implements WordsDao {
 		case "json":
 			FileReader jf = new JsonFeed();
 			result = jf.readUrl(wordListUrl, wordList);
-			break;
-		case "csv":
 			break;
 		default:
 			break;

@@ -15,28 +15,40 @@ import org.json.JSONObject;
 public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
 	LanguageService languageService = new LanguageService();
 
-    public ArrayList<Language> getAllLanguages(){
-        ArrayList<Language> result = new ArrayList<>();
-        try (Connection con = super.getConnection()) {
-            PreparedStatement pst = con.prepareStatement("select * from languages");
-            ResultSet res = pst.executeQuery();
+	public ArrayList<Language> getAllLanguages() {
+		ArrayList<Language> result = new ArrayList<>();
+		try (Connection con = super.getConnection()) {
+			PreparedStatement pst = con.prepareStatement("select * from languages");
+			ResultSet res = pst.executeQuery();
 
-            if(res != null) {
-            while(res.next()){
-                String name = res.getString("name");
-                String code = res.getString("code");
-                int id = res.getInt("id");
-                Language l = languageService.createLanguage(name, code, id);
-                result.add(l);
-            }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+			if (res != null) {
+				while (res.next()) {
+					result.add(getLanguageFromRes(res));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-        return result;
+		return result;
 
-    }
+	}
+
+	@Override
+	public Language getLanguageFromRes(ResultSet res) {
+		Language result = null;
+		try {
+			String name = res.getString("name");
+			String code = res.getString("code");
+			int id = res.getInt("id");
+
+			result = languageService.createLanguage(name, code, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 
 	@Override
 	public Boolean postLanguage(String jsonData) {
@@ -44,7 +56,7 @@ public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
 		JSONObject object = new JSONObject(jsonData);
 		String languageName = object.get("name").toString();
 		String languageCode = object.get("code").toString();
-		
+
 		try (Connection con = super.getConnection()) {
 			PreparedStatement pst = con.prepareStatement("INSERT INTO languages(name, code) values(?, ?)");
 			pst.setString(1, languageName);
@@ -56,7 +68,7 @@ public class LanguageDaoImpl extends PostgresBaseDao implements LanguageDao {
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
-		
+
 		return result;
 	}
 }

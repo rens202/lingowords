@@ -3,6 +3,7 @@ package persistence;
 import domain.Word;
 import domain.Wordlist;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,4 +21,8 @@ public interface WordsDao {
 	Boolean addWord(int id, String newword);
 	
 	Boolean postWords(String json);
+
+	Wordlist getWordListFromRes(ResultSet res);
+	
+	
 }
