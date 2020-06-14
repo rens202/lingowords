@@ -36,4 +36,4 @@ Het is mogelijk nieuwe languages aan te maken en vervolgens nieuwe woordlijsten 
 
 
 Aangezien ik te achterlijk was om de codecov voor elkaar te krijgen (zie 0% heb ik hier een hele mooie image.
-![alt text](https://github.com/rens202/lingowords/blob/lingowords_coverage.jpg?raw=true)
+![code coverage](https://github.com/rens202/lingowords/blob/master/lingowords_coverage.JPG)
