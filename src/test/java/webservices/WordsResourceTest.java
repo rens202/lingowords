@@ -23,7 +23,6 @@ public class WordsResourceTest {
 			Response result = wordsResource.getWordLists();
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -33,7 +32,6 @@ public class WordsResourceTest {
 			Response result = wordsResource.postWordLists(jsonData);
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -43,7 +41,6 @@ public class WordsResourceTest {
 			Response result = wordsResource.deleteWordList(1);
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -53,7 +50,6 @@ public class WordsResourceTest {
 			Response result = wordsResource.putWordList(1, "newWord");
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -63,7 +59,6 @@ public class WordsResourceTest {
 			Response result = wordsResource.getWordsFromList(1);
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

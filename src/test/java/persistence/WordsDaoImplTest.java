@@ -84,7 +84,6 @@ public class WordsDaoImplTest extends PostgresBaseDao {
 	@Test
 	public void deleteWordList() {
 		try {
-
 			Boolean result = wordsDao.deleteWordList(wordlist.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,11 +103,9 @@ public class WordsDaoImplTest extends PostgresBaseDao {
 	@Test
 	public void postWords() {
 		try {
-
 			Boolean result = wordsDao.postWords(jsonData);
 			Boolean result2 = wordsDao.postWords(jsonData2);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 

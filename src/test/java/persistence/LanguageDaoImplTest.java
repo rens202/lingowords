@@ -34,7 +34,6 @@ public class LanguageDaoImplTest {
 		try {
 			languageDao.getAllLanguages();
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -43,7 +42,6 @@ public class LanguageDaoImplTest {
 		try {
 			languageDao.postLanguage(jsonData);
 		} catch (Exception e) {
-			e.printStackTrace();
 
 		}
 	}

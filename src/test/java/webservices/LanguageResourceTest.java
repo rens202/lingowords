@@ -21,7 +21,7 @@ public class LanguageResourceTest {
 
 	@Before
 	public void setUp() {
-		jsonData = "{\"language\": 1, \"name\":\"test\", \"url\": \"aaaa.txt\"}";
+		jsonData = "{\"name\":\"Nederlands\", \"code\": \"NED\"}";
 		languageResource = new LanguagesResource();
 
 	}
@@ -32,7 +32,6 @@ public class LanguageResourceTest {
 			Response result = languageResource.getLanguages();
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -42,7 +41,6 @@ public class LanguageResourceTest {
 			Response result = languageResource.postLanguage(jsonData);
 			assertNotNull(result);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}
